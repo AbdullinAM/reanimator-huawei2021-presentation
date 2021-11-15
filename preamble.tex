@@ -1,0 +1,62 @@
+\renewcommand{\caption}[1]{}
+\setsansfont[BoldFont={Fira Sans Bold}, Scale=1.05]{Fira Sans}
+\setmonofont[Scale=0.95]{Fira Mono}
+\metroset{outer/numbering=fraction}
+% \metroset{titleformat=regular}
+\graphicspath{{fig/}}
+\usepackage{multirow}
+\usepackage{syntax}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+
+\usepackage{listings}
+
+\lstdefinestyle{base_listing}{ % Для отображения русского языка
+  extendedchars     = true,
+  inputencoding     = {utf8}, 
+  basicstyle        = {\ttfamily \scriptsize},
+  keywordstyle      = {\rmfamily \bfseries},
+  commentstyle      = {\rmfamily \itshape},
+  tabsize           = {2},
+  flexiblecolumns   = {false},
+  frame             = {single},
+  showstringspaces  = {false},
+  breaklines        = {true}, 
+  breakatwhitespace = {true},
+  escapeinside      = {\%*}{*\%}
+}
+
+\lstdefinelanguage{LLVM-asm}
+{
+  morekeywords = {
+    load, store, malloc, alloca, free, getelementptr,
+    add, sub, insertvalue, extractvalue, icmp, call,
+    define, void, global, ret, common
+  },
+  sensitive   = false,
+  morecomment = [l]{;}
+}
+
+\lstdefinestyle{src-llvm}{
+  style    = {base_listing},
+  language = {LLVM-asm}
+}
+
+\lstdefinestyle{src-cpp}{
+  style    = {base_listing},
+  language = {C++}
+}
+
+\lstdefinestyle{src-cpp-enlightend}{
+  style    = {base_listing},
+  language = {C++},  
+  moredelim=**[is][\color{red}]{@}{@},
+}
