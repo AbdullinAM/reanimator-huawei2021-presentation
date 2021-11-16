@@ -20,7 +20,7 @@ Kex --- white-box fuzzer for JVM bytecode
 # Motivating example
 
 ::::::::::::::{.columns}
-::: {.column width="40%"}
+::: {.column width="50%"}
 \small
 ```kotlin
 class ListExample {
@@ -40,7 +40,7 @@ class ListExample {
 }
 ```
 :::
-::: {.column width="40%"}
+::: {.column width="50%"}
 \small
 ```kotlin
 (
@@ -167,11 +167,14 @@ todo
 
 ################################################################################
 
+# Main idea
+
+
+################################################################################
+
 # Checking methods
 
 * `execAsCtor` and `execAsMethod` check how the method affects the descriptor using SMT solver
-* method need to be represented as SMT formulae
-  * predicate state
 * method basically transforms memory state
 * descriptor defines final memory
 * *need to find initial memory*
@@ -187,6 +190,26 @@ Method types:
 * constructor --- initial memory is uninitialized
 * setter --- setted fields are uninitialized
 * method --- no constraints for initial memory
+
+
+################################################################################
+
+# Program model in SMT
+
+* primitive types represented through corresponding SMT theories
+* references are represented as `bitvectors`
+* arrays are envcoded as `SMT arrays`
+
+::::::::::::::{.columns}
+::: {.column width="40%"}
+```
+todo
+```
+:::
+::: {.column width="40%"}
+todo
+:::
+::::::::::::::
 
 
 ################################################################################
