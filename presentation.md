@@ -107,6 +107,17 @@ todo
 
 ################################################################################
 
+# Related work
+
+* Symstra
+  * builds valid method sequence during analysis
+* JBSE
+  * uses reflection utilities to create tests
+* Sushi & Tardis
+  * use EvoSuite (search-based approach) to generate tests
+
+################################################################################
+
 # Reanimator
 
 * an approach to generate valid code snippets using only public API
@@ -191,7 +202,6 @@ Method types:
 * setter --- setted fields are uninitialized
 * method --- no constraints for initial memory
 
-
 ################################################################################
 
 # Program model in SMT
@@ -200,16 +210,21 @@ Method types:
 * references are represented as `bitvectors`
 * arrays are envcoded as `SMT arrays`
 
-::::::::::::::{.columns}
-::: {.column width="40%"}
-```
-todo
-```
-:::
-::: {.column width="40%"}
-todo
-:::
-::::::::::::::
+todo image
+
+################################################################################
+
+# Examples: constructor call
+
+
+################################################################################
+
+# Examples: setter call
+
+
+################################################################################
+
+# Examples: method call
 
 
 ################################################################################
@@ -257,6 +272,13 @@ fun test(): Unit {
 }
 ```
 
+################################################################################
+
+# Limitations
+
+* incomplete program model
+* built-in types (collections, files etc.)
+* search termination
 
 ################################################################################
 
@@ -264,20 +286,11 @@ fun test(): Unit {
 
 * implemented Reanimator as a part of Kex
 * using Z3 for query solving
-* custom string generator
 * generation depth is limited to 5
-
 
 ################################################################################
 
-# Related work
-
-* Symstra
-  * builds valid method sequence during analysis
-* JBSE
-  * uses reflection utilities to create tests
-* Sushi & Tardis
-  * use EvoSuite (search-based approach) to generate tests
+# Evaluation on SBST 2021 benchmark
 
 ################################################################################
 
