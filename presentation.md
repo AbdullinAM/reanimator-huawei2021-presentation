@@ -167,11 +167,6 @@ todo
 
 ################################################################################
 
-# Object generation algoritnm
-
-
-################################################################################
-
 # Checking methods
 
 * `execAsCtor` and `execAsMethod` check how the method affects the descriptor using SMT solver
