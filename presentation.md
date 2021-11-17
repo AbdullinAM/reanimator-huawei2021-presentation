@@ -121,6 +121,18 @@ How to create a test case from the model?
 
 ################################################################################
 
+
+# Related work
+
+* Symstra
+  * builds valid method sequence during analysis
+* JBSE
+  * uses reflection utilities to create tests
+* Sushi & Tardis
+  * use EvoSuite (search-based approach) to generate tests
+
+################################################################################
+
 # Reanimator
 
 * an approach to generate valid code snippets using only public API
@@ -320,13 +332,28 @@ fun test(): Unit {
 
 # Evaluation on SBST 2021 benchmark
 
+\begin{center}
+\begin{tabular}{|r|c|c|c|c|}
+\hline 
+\textbf{}    & \textbf{60s} & \textbf{120s} & \textbf{300s} & \textbf{600s} \\ 
+\hline 
+\texttt{tardis}  & 13.96\% & 15.71\% & 18.50\% & 19.60\% \\ 
+\hline 
+\texttt{tardis + reanimator}  & 13.84\% & 15.99\% & 17.84\% & 19.30\%\\ 
+\hline 
+\texttt{kex + reanimator}  & 24.57\% & 25.29\% & 25.43\% & 27.61\%\\ 
+\hline
+\end{tabular} 
+\end{center}
+
 ################################################################################
 
 # Conclusion
 
-################################################################################
+* an approach for test generation based on symbolic execution
+* compatible with state of the art alternatives
 
-# Future work
+Future work:
 
 * more thorough investigation of Reanimator failures
 * improved support of built-in types, such as collections
@@ -351,17 +378,5 @@ fun test(): Unit {
 ![](polytech)
 :::
 ::::::::::::::
-
-################################################################################
-
-
-# Related work
-
-* Symstra
-  * builds valid method sequence during analysis
-* JBSE
-  * uses reflection utilities to create tests
-* Sushi & Tardis
-  * use EvoSuite (search-based approach) to generate tests
 
 ################################################################################
