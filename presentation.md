@@ -13,10 +13,6 @@ Kex --- white-box fuzzer for JVM bytecode
 
 ################################################################################
 
-# ???
-
-################################################################################
-
 # Motivating example
 
 ::::::::::::::{.columns}
@@ -103,18 +99,25 @@ How to create a test case from the model?
 * test are hard to comprehend and maintain
 * can generate invalid objects
 
-todo
-
-################################################################################
-
-# Related work
-
-* Symstra
-  * builds valid method sequence during analysis
-* JBSE
-  * uses reflection utilities to create tests
-* Sushi & Tardis
-  * use EvoSuite (search-based approach) to generate tests
+\scriptsize
+```java
+    public class TestSuite {
+        public void test4() {
+          example.ListExample __ROOT_this = (example.ListExample)
+             newInstance("example.ListExample");
+          java.util.ArrayList __ROOT_a = (java.util.ArrayList) 
+             newInstance("java.util.ArrayList");
+          new AccessibleObject(__ROOT_a)
+            .set("java/util/ArrayList:size", 2L);
+          new AccessibleObject(__ROOT_a)
+            .set("java/util/ArrayList:elementData", 
+                    newArray("java.lang.Object", 2L));
+          new AccessibleObject(__ROOT_a)
+            .set("java/util/ArrayList:elementData[0]", null);
+          __ROOT_this.foo(__ROOT_a);
+        }
+      }
+```
 
 ################################################################################
 
@@ -178,8 +181,28 @@ todo
 
 ################################################################################
 
-# Main idea
+# Object generation algoritnm
 
+\scriptsize
+```kotlin
+fun generateObject(d: ObjectDescriptor, limit: Int): CallStack {
+  val queue = queueOf(d to CallStack())
+  while (queue.isNotEmpty()) {
+    val (desc, stack) = queue.poll()
+    if (stack.size > limit) return Unknown()
+    for (ctor in desc.ctors) {
+      val (nDesc, args) = execAsCtor(desc, ctor)
+      if (isFinal(nDesc))
+        return stack + CtorCall(desc, genArgs(args))
+    }
+    for (method in desc.relevantMethods) {
+      val (nDesc, args) = execAsMethod(desc, method)
+      if (nDesc < desc)
+        queue.push(nDesc to calls + MethodCall(method, genArgs(args)))
+    }
+  }
+}
+```
 
 ################################################################################
 
@@ -192,8 +215,28 @@ todo
 
 ################################################################################
 
+# Memory model in SMT
+
+\footnotesize
+* primitive types encoded as corresponding SMT theories
+* references are represented as `bitvectors`
+* arrays are encoded as `SMT arrays`
+* object properties are encoded through *property memories*
+
+\vspace{-1mm}
+![](memoryModel)
+
+################################################################################
+
+# Method is a memory transformation
+
+![](method)
+
+################################################################################
+
 # Symbolic execution
 
+\vspace{2mm}
 ![](symbolicExecution)
 
 Method types:
@@ -204,28 +247,21 @@ Method types:
 
 ################################################################################
 
-# Program model in SMT
-
-* primitive types represented through corresponding SMT theories
-* references are represented as `bitvectors`
-* arrays are envcoded as `SMT arrays`
-
-todo image
-
-################################################################################
-
 # Examples: constructor call
 
+![](constructorExample)
 
 ################################################################################
 
 # Examples: setter call
 
+![](setterExample)
 
 ################################################################################
 
 # Examples: method call
 
+![](methodExample)
 
 ################################################################################
 
@@ -282,14 +318,6 @@ fun test(): Unit {
 
 ################################################################################
 
-# Experimental setup
-
-* implemented Reanimator as a part of Kex
-* using Z3 for query solving
-* generation depth is limited to 5
-
-################################################################################
-
 # Evaluation on SBST 2021 benchmark
 
 ################################################################################
@@ -326,3 +354,14 @@ fun test(): Unit {
 
 ################################################################################
 
+
+# Related work
+
+* Symstra
+  * builds valid method sequence during analysis
+* JBSE
+  * uses reflection utilities to create tests
+* Sushi & Tardis
+  * use EvoSuite (search-based approach) to generate tests
+
+################################################################################
