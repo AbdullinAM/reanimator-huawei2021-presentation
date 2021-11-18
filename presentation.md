@@ -124,12 +124,14 @@ How to create a test case from the model?
 
 # Related work
 
-* Symstra
+* Symstra\footnote{Xie T. et al. Symstra: A framework for generating object-oriented unit tests using symbolic execution //International Conference on Tools and Algorithms for the Construction and Analysis of Systems. – Springer, Berlin, Heidelberg, 2005. – С. 365-381.}
   * builds valid method sequence during analysis
-* JBSE
+* JBSE\footnote{Braione P., Denaro G., Pezzè M. JBSE: A symbolic executor for java programs with complex heap inputs //Proceedings of the 2016 24th ACM SIGSOFT International Symposium on Foundations of Software Engineering. – 2016. – С. 1018-1022.
+}
   * uses reflection utilities to create tests
-* Sushi & Tardis
+* Sushi & Tardis\footnote{Braione P., Denaro G. SUSHI and TARDIS at the SBST2019 Tool Competition //2019 IEEE/ACM 12th International Workshop on Search-Based Software Testing (SBST). – IEEE, 2019. – С. 25-28.}
   * use EvoSuite (search-based approach) to generate tests
+
 
 ################################################################################
 
@@ -215,15 +217,6 @@ fun generateObject(d: ObjectDescriptor, limit: Int): CallStack {
   }
 }
 ```
-
-################################################################################
-
-# Checking methods
-
-* `execAsCtor` and `execAsMethod` check how the method affects the descriptor using SMT solver
-* method basically transforms memory state
-* descriptor defines final memory
-* *need to find initial memory*
 
 ################################################################################
 
@@ -330,7 +323,7 @@ fun test(): Unit {
 
 ################################################################################
 
-# Evaluation on SBST 2021 benchmark
+# Evaluation on SBST 2021 benchmark\footnote{\url{https://github.com/JUnitContest/JUGE}}
 
 \begin{center}
 \begin{tabular}{|r|c|c|c|c|}
